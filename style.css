@@ -1,0 +1,531 @@
+/* ============================================
+   CSS VARIABLES & RESET
+   ============================================ */
+
+/* Define custom CSS variables (custom properties) in the :root pseudo-class for global access */
+:root {
+  /* Orange color for primary brand elements */
+  --orange:      hsl(26, 100%, 55%);
+  /* Light orange for backgrounds/hover states */
+  --pale-orange: hsl(25, 100%, 94%);
+  /* Dark blue for headings and primary text */
+  --dark-blue:   hsl(220, 13%, 13%);
+  /* Dark gray for secondary text */
+  --dark-gray:   hsl(219, 9%, 45%);
+  /* Medium gray for borders and inactive elements */
+  --gray:        hsl(220, 14%, 75%);
+  /* Light gray for backgrounds */
+  --light-gray:  hsl(223, 64%, 98%);
+  /* Pure white */
+  --white:       hsl(0, 0%, 100%);
+  /* Primary font family for the entire site */
+  --font:        'Kumbh Sans', sans-serif;
+  /* Standard border radius for consistent rounded corners */
+  --radius:      10px;
+}
+
+/* Universal selector with pseudo-elements to reset margins/padding and set box-sizing */
+*, *::before, *::after {
+  margin: 0;           /* Remove default margins */
+  padding: 0;          /* Remove default padding */
+  box-sizing: border-box; /* Include padding/border in element's total width/height */
+}
+
+/* Body styles - base typography and background */
+body {
+  font-family: var(--font);    /* Use custom font variable */
+  font-size: 16px;             /* Set base font size */
+  color: var(--dark-blue);     /* Set default text color */
+  background: var(--white);    /* White background */
+}
+
+/* Image styles - remove extra space below images and make responsive */
+img    { display: block; width: 100%; }
+/* Button styles - remove default styles and inherit font */
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+/* Remove list bullet points */
+ul     { list-style: none; }
+/* Remove link underlines */
+a      { text-decoration: none; }
+
+
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+
+/* Main header container - sticky positioning */
+.header {
+  position: sticky;    /* Sticks to top when scrolling */
+  top: 0;              /* Stick to top edge */
+  z-index: 100;        /* High z-index to stay above other content */
+  background: var(--white); /* White background */
+}
+
+/* Inner header container - flex layout for alignment */
+.header__inner {
+  display: flex;           /* Enable flex box */
+  align-items: center;     /* Vertically center items */
+  gap: 1rem;               /* Space between flex items */
+  max-width: 1110px;       /* Maximum content width */
+  margin: 0 auto;          /* Center horizontally */
+  padding: 0 1.5rem;       /* Horizontal padding */
+  height: 86px;            /* Fixed header height */
+}
+
+/* Bottom border line for header - full width of inner container */
+.header__border {
+  height: 1px;             /* Thin border line */
+  background: var(--gray); /* Gray color */
+  opacity: 0.35;           /* Slightly transparent */
+  max-width: 1110px;       /* Match inner container width */
+  margin: 0 auto;          /* Center horizontally */
+}
+
+/* Logo styling */
+.logo {
+  font-size: 1.75rem;      /* Large font size */
+  font-weight: 700;        /* Bold text */
+  color: var(--dark-blue); /* Dark blue color */
+  white-space: nowrap;     /* Prevent text wrapping */
+  margin-right: 1rem;      /* Space after logo */
+  flex-shrink: 0;          /* Prevent logo from shrinking */
+}
+
+/* ---- Desktop navigation ---- */
+.nav {
+  margin-right: auto;      /* Push subsequent elements to the right */
+}
+
+/* Navigation list - flex container */
+.nav__list {
+  display: flex;           /* Horizontal layout */
+  align-items: stretch;    /* Stretch items to full height */
+  gap: 0;                  /* No gap between items */
+  height: 86px;            /* Full header height */
+}
+
+/* Each nav list item */
+.nav__list li {
+  display: flex;           /* Flex container */
+  align-items: stretch;    /* Stretch to full height */
+}
+
+/* Navigation links */
+.nav__link {
+  display: flex;           /* Flex container */
+  align-items: center;     /* Center text vertically */
+  padding: 0 1.25rem;      /* Horizontal padding */
+  color: var(--dark-gray); /* Gray text color */
+  font-size: 0.9375rem;    /* Slightly smaller font */
+  position: relative;      /* For pseudo-element positioning */
+  transition: color 0.2s;  /* Smooth color transition */
+}
+
+/* Orange underline pseudo-element for hover effect */
+.nav__link::after {
+  content: '';             /* Required for pseudo-element */
+  position: absolute;      /* Position relative to link */
+  bottom: 0;               /* Align to bottom */
+  left: 1.25rem;           /* Start after padding */
+  right: 1.25rem;          /* End before padding */
+  height: 3px;             /* Thickness of underline */
+  background: var(--orange); /* Orange color */
+  border-radius: 3px 3px 0 0; /* Rounded top corners */
+  opacity: 0;              /* Hidden by default */
+  transition: opacity 0.2s; /* Smooth fade in/out */
+}
+
+/* Hover effects for nav links */
+.nav__link:hover {
+  color: var(--dark-blue); /* Darker text on hover */
+}
+.nav__link:hover::after {
+  opacity: 1;              /* Show orange underline */
+}
+
+/* ---- Header right section (cart and avatar) ---- */
+.header__actions {
+  display: flex;           /* Horizontal layout */
+  align-items: center;     /* Center vertically */
+  gap: 2rem;               /* Space between items */
+  margin-left: auto;       /* Push to the right */
+}
+
+/* Cart button styling */
+.btn-cart {
+  position: relative;      /* For badge positioning */
+  display: flex;           /* Flex container */
+  align-items: center;     /* Center icon */
+  padding: 4px;            /* Small padding for click area */
+  transition: opacity 0.2s; /* Smooth hover effect */
+}
+.btn-cart:hover {
+  opacity: 0.7;            /* Slightly transparent on hover */
+}
+
+/* Cart icon image */
+.cart-icon-img {
+  width: 22px;             /* Fixed width */
+  height: auto;            /* Maintain aspect ratio */
+}
+
+/* Cart item count badge */
+.cart-badge {
+  position: absolute;      /* Position relative to cart button */
+  top: -6px;               /* Position above button */
+  right: -8px;             /* Position to the right */
+  background: var(--orange); /* Orange background */
+  color: var(--white);     /* White text */
+  font-size: 0.625rem;     /* Very small text */
+  font-weight: 700;        /* Bold text */
+  min-width: 19px;         /* Minimum width for single digit */
+  height: 19px;            /* Fixed height */
+  border-radius: 999px;    /* Fully rounded (pill shape) */
+  display: flex;           /* Flex container for centering */
+  align-items: center;     /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  padding: 0 5px;          /* Horizontal padding */
+  line-height: 1;          /* Normal line height */
+}
+
+/* Avatar button */
+.btn-avatar {
+  width: 50px;             /* Fixed width */
+  height: 50px;            /* Fixed height (square) */
+  border-radius: 50%;      /* Make it circular */
+  overflow: hidden;        /* Hide overflowing image parts */
+  border: 2px solid transparent; /* Transparent border for hover effect */
+  flex-shrink: 0;          /* Prevent shrinking */
+  transition: border-color 0.2s; /* Smooth border color change */
+}
+.btn-avatar:hover {
+  border-color: var(--orange); /* Orange border on hover */
+}
+.btn-avatar img {
+  width: 100%;             /* Fill container width */
+  height: 100%;            /* Fill container height */
+  object-fit: cover;       /* Cover area without distortion */
+}
+
+/* Hamburger menu button - hidden on desktop by default */
+.btn-menu {
+  display: none;           /* Hidden on desktop */
+  align-items: center;     /* Center icon */
+  padding: 4px;            /* Small padding for click area */
+  flex-shrink: 0;          /* Prevent shrinking */
+}
+.btn-menu img {
+  width: 16px;             /* Fixed width */
+  height: auto;            /* Maintain aspect ratio */
+}
+
+
+/* ============================================
+   MOBILE NAV DRAWER
+   ============================================ */
+
+/* Mobile navigation drawer - slides in from left */
+.mobile-nav {
+  position: fixed;         /* Fixed position overlay */
+  top: 0;                  /* Align to top */
+  left: 0;                 /* Align to left */
+  width: 260px;            /* Fixed width drawer */
+  height: 100%;            /* Full height */
+  background: var(--white); /* White background */
+  z-index: 400;            /* High z-index (above overlay) */
+  padding: 1.5rem 1.75rem; /* Inner spacing */
+  transform: translateX(-100%); /* Hidden off-screen left */
+  transition: transform 0.3s ease; /* Smooth slide animation */
+}
+/* Open state - slide into view */
+.mobile-nav.open {
+  transform: translateX(0); /* Visible on screen */
+}
+
+/* Close button inside mobile nav */
+.btn-close-nav {
+  display: flex;           /* Flex container */
+  align-items: center;     /* Center icon */
+  margin-bottom: 3rem;     /* Space below button */
+  padding: 4px 0;          /* Vertical padding */
+}
+.btn-close-nav img {
+  width: 14px;             /* Fixed width */
+  height: auto;            /* Maintain aspect ratio */
+}
+
+/* Mobile navigation list - vertical layout */
+.mobile-nav__list {
+  display: flex;           /* Flex container */
+  flex-direction: column;  /* Stack vertically */
+  gap: 1.5rem;             /* Space between items */
+}
+/* Mobile navigation links */
+.mobile-nav__link {
+  color: var(--dark-blue); /* Dark text */
+  font-size: 1.125rem;     /* Larger font */
+  font-weight: 700;        /* Bold text */
+  transition: color 0.2s;  /* Smooth color change */
+}
+.mobile-nav__link:hover {
+  color: var(--orange);    /* Orange on hover */
+}
+
+/* Semi-transparent overlay behind mobile nav */
+.mobile-nav-overlay {
+  position: fixed;         /* Fixed overlay */
+  inset: 0;                /* Cover entire viewport (top/right/bottom/left) */
+  background: rgba(0, 0, 0, 0.75); /* Semi-transparent black */
+  z-index: 300;            /* Below mobile nav but above content */
+  display: none;           /* Hidden by default */
+}
+/* Show overlay when open */
+.mobile-nav-overlay.open {
+  display: block;          /* Visible */
+}
+
+
+/* ============================================
+   CART DROPDOWN
+   ============================================ */
+
+/* Wrapper for relative positioning of dropdown */
+.cart-wrapper {
+  position: relative;      /* For absolute positioning of dropdown */
+}
+
+/* Cart dropdown menu */
+.cart-dropdown {
+  position: absolute;      /* Position relative to cart-wrapper */
+  top: calc(100% + 1.75rem); /* Below cart button with spacing */
+  right: -1rem;            /* Shift right to align properly */
+  width: 360px;            /* Fixed width */
+  background: var(--white); /* White background */
+  border-radius: var(--radius); /* Rounded corners */
+  box-shadow: 0 20px 60px -10px rgba(29, 32, 38, 0.3); /* Subtle shadow */
+  z-index: 200;            /* Above main content */
+  /* Hidden by default with transitions */
+  opacity: 0;              /* Invisible */
+  transform: translateY(-6px); /* Slight upward offset */
+  pointer-events: none;    /* Can't click when hidden */
+  transition: opacity 0.2s, transform 0.2s; /* Smooth animation */
+}
+/* Open state */
+.cart-dropdown.open {
+  opacity: 1;              /* Fully visible */
+  transform: translateY(0); /* Reset position */
+  pointer-events: all;     /* Enable clicking */
+}
+
+/* Cart dropdown header section */
+.cart-dropdown__header {
+  padding: 1.5rem 1.5rem 1.25rem; /* Top/right/bottom/left padding */
+  border-bottom: 1px solid hsl(220, 14%, 90%); /* Light border */
+}
+/* Cart title */
+.cart-dropdown__title {
+  font-size: 1rem;         /* Standard font size */
+  font-weight: 700;        /* Bold text */
+}
+
+/* Cart body content area */
+.cart-dropdown__body {
+  padding: 1.5rem;         /* Inner spacing */
+}
+
+/* Empty cart state */
+.cart-empty {
+  text-align: center;      /* Center text */
+  color: var(--dark-gray); /* Gray text */
+  font-weight: 700;        /* Bold */
+  padding: 3rem 0;         /* Vertical padding */
+}
+
+/* Individual cart item row */
+.cart-item {
+  display: flex;           /* Horizontal layout */
+  align-items: center;     /* Center vertically */
+  gap: 1rem;               /* Space between elements */
+  margin-bottom: 1.5rem;   /* Space below each item */
+}
+/* Product thumbnail in cart */
+.cart-item__thumb {
+  width: 50px;             /* Fixed width */
+  height: 50px;            /* Fixed height */
+  border-radius: 6px;      /* Slightly rounded corners */
+  overflow: hidden;        /* Hide overflowing image parts */
+  flex-shrink: 0;          /* Prevent shrinking */
+}
+.cart-item__thumb img {
+  width: 100%;             /* Fill container */
+  height: 100%;            /* Fill container */
+  object-fit: cover;       /* Cover area without distortion */
+}
+
+/* Cart item information container */
+.cart-item__info {
+  flex: 1;                 /* Take remaining space */
+  min-width: 0;            /* Allow text truncation */
+}
+/* Product name in cart */
+.cart-item__name {
+  color: var(--dark-gray); /* Gray text */
+  font-size: 0.9375rem;    /* Slightly smaller */
+  white-space: nowrap;     /* Prevent wrapping */
+  overflow: hidden;        /* Hide overflow */
+  text-overflow: ellipsis; /* Show ... for overflow */
+  margin-bottom: 0.3rem;   /* Space below */
+}
+/* Price calculation display */
+.cart-item__calc {
+  color: var(--dark-gray); /* Gray text */
+  font-size: 0.9375rem;    /* Slightly smaller */
+}
+/* Total price for item */
+.cart-item__total {
+  color: var(--dark-blue); /* Dark text */
+  font-weight: 700;        /* Bold */
+  margin-left: 0.25rem;    /* Small space left */
+}
+
+/* Delete item button */
+.btn-delete {
+  flex-shrink: 0;          /* Prevent shrinking */
+  padding: 6px;            /* Padding for click area */
+  opacity: 0.5;            /* Semi-transparent by default */
+  transition: opacity 0.2s; /* Smooth hover effect */
+}
+.btn-delete:hover {
+  opacity: 1;              /* Fully visible on hover */
+}
+.btn-delete img {
+  width: 14px;             /* Fixed width */
+  height: auto;            /* Maintain aspect ratio */
+}
+
+/* Checkout button */
+.btn-checkout {
+  width: 100%;             /* Full width */
+  padding: 1.125rem;       /* Vertical padding */
+  background: var(--orange); /* Orange background */
+  color: var(--white);     /* White text */
+  font-size: 1rem;         /* Standard font size */
+  font-weight: 700;        /* Bold text */
+  border-radius: var(--radius); /* Rounded corners */
+  transition: background 0.2s; /* Smooth background change */
+  margin-top: 0.25rem;     /* Small top margin */
+}
+.btn-checkout:hover {
+  background: hsl(26, 100%, 65%); /* Lighter orange on hover */
+}
+
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+
+/* Main content container */
+.main {
+  max-width: 1110px;       /* Maximum content width */
+  margin: 0 auto;          /* Center horizontally */
+  padding: 5.5rem 1.5rem 5rem; /* Top/horizontal/bottom padding */
+}
+
+/* Product section - two column grid */
+.product {
+  display: grid;           /* CSS Grid layout */
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 7.5rem;             /* Large gap between columns */
+  align-items: center;     /* Center items vertically */
+}
+
+
+/* ============================================
+   GALLERY SECTION
+   ============================================ */
+
+/* Main gallery image container */
+.gallery__main {
+  position: relative;      /* For absolute positioned arrows */
+  border-radius: var(--radius); /* Rounded corners */
+  overflow: hidden;        /* Hide overflowing image parts */
+  cursor: zoom-in;         /* Indicate click to zoom */
+}
+
+/* Main gallery image */
+.gallery__main img {
+  width: 100%;             /* Full width */
+  display: block;          /* Remove extra space */
+  border-radius: var(--radius); /* Rounded corners */
+}
+
+/* Navigation arrows for mobile - hidden on desktop */
+.gallery__arrow {
+  display: none;           /* Hidden on desktop */
+  position: absolute;      /* Position over image */
+  top: 50%;                /* Center vertically */
+  transform: translateY(-50%); /* Perfect vertical centering */
+  width: 40px;             /* Fixed width */
+  height: 40px;            /* Fixed height */
+  background: var(--white); /* White background */
+  border-radius: 50%;      /* Circular shape */
+  align-items: center;     /* Center icon */
+  justify-content: center; /* Center icon */
+  z-index: 10;             /* Above image */
+  transition: opacity 0.2s; /* Smooth hover effect */
+}
+.gallery__arrow img {
+  width: 12px;             /* Fixed width */
+  height: auto;            /* Maintain aspect ratio */
+}
+.gallery__arrow:hover {
+  opacity: 0.6;            /* Semi-transparent on hover */
+}
+.gallery__arrow--prev {
+  left: 1rem;              /* Position from left */
+}
+.gallery__arrow--next {
+  right: 1rem;             /* Position from right */
+}
+
+/* Thumbnail grid container */
+.gallery__thumbs {
+  display: grid;           /* CSS Grid */
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  gap: 1.25rem;            /* Gap between thumbnails */
+  margin-top: 2rem;        /* Space above thumbnails */
+}
+
+/* Individual thumbnail button */
+.gallery__thumb {
+  border-radius: var(--radius); /* Rounded corners */
+  overflow: hidden;        /* Hide overflow */
+  border: 2px solid transparent; /* Transparent border for active state */
+  background: var(--white); /* White background */
+  transition: border-color 0.2s, opacity 0.2s; /* Smooth transitions */
+  padding: 0;              /* No padding */
+}
+.gallery__thumb img {
+  border-radius: 8px;      /* Slightly rounded corners */
+  display: block;          /* Remove extra space */
+}
+.gallery__thumb:hover {
+  opacity: 0.7;            /* Semi-transparent on hover */
+}
+/* Active thumbnail state */
+.gallery__thumb.active {
+  border-color: var(--orange); /* Orange border */
+  opacity: 0.4;            /* Reduced opacity to show selection */
+}
+
+
+/* product details */
+.product__brand{
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.25rem;
+}
+
